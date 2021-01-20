@@ -43,22 +43,19 @@ std::ofstream file { argv[3] }; //create file that will be wrote to
 
     coalesceImages(&coalesced, input.begin(), input.end()); //turns the input image into a coalesced image of all the frames; this makes it akin to a playable gif
 
-for (Image &image : coalesced) { //iterate image memory over coalesced's frames
-      Image appended; 
-      list <Image> images;
-      image.backgroundColor("white");
-      images.push_back(caption_image);
-      images.push_back(image);
-      appendImages(&appended, images.begin(), images.end(), true);
-      appended.repage();
+for (Image &image : coalesced) { //iterates over every existing gif frame and add the caption to them
+      Image appended; //create image appended
+      list <Image> images; //create list of images called images
+      image.backgroundColor("white");//adds white background to image
+      images.push_back(caption_image); //adding caption to the top
+      images.push_back(image); //adding the image itself
+      appendImages(&appended, images.begin(), images.end(), true); //apends images to the memory location of appended
+      appended.repage(); 
       appended.magick("gif"); //type inhereted from https://github.com/esmBot/esmBot/blob/master/commands/caption.js. Just assuming a gif
       captioned.push_back(appended);
 }
 int delay = 1;
-    //OptimizeImageLayers(&result, captioned.begin(), captioned.end());
-    if (delay != 0) for_each(result.begin(), result.end(), animationDelayImage(delay));
+    optimizeImageLayers(&result, captioned.begin(), captioned.end());
+    for_each(result.begin(), result.end(), animationDelayImage(1));
     writeImages(result.begin(), result.end(), argv[3]); //writes image to third argument's location
-
-
-
 }
