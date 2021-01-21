@@ -32,12 +32,12 @@ std::ofstream file { argv[3] }; //create file that will be wrote to
     Image caption_image(Geometry(query), Color("white")); //make a white caption canvas
     caption_image.fillColor("black"); //make whats about to be appended black
     //caption_image.alpha(true); //it is transparent
-    caption_image.font("Futura"); //Futura font
+    caption_image.font("League-Spartan-Bold"); //Futura font
     caption_image.fontPointsize(width/13); //width divided by 13 is fontside so it can align with the caption
     caption_image.textGravity(Magick::CenterGravity); //center the text
     string text_input = argv[2]; //make var text_input accept the second arg as its datum
     text_input.insert(0, "pango:"); //tell text input to use the pango engine
-    cout << text_input << "\n"; //break line in text input
+    //cout << text_input << "\n"; //break line in text input
     caption_image.read(text_input); //read the caption and input
     caption_image.extent(Geometry(width, caption_image.rows() + (width / 13)), Magick::CenterGravity); //extend the image itself to fit with the text
 
